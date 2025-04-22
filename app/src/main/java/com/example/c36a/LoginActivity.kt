@@ -106,7 +106,20 @@ fun InstaClone(innerPadding: PaddingValues) {
                     height(120.dp).width(120.dp).
                     clip(shape = RoundedCornerShape(100.dp))
             )
+            Column {
+                Text("174")
+                Text("Posts")
+            }
+            Column {
+                Text("174")
+                Text("Posts")
+            }
+            Column {
+                Text("174")
+                Text("Posts")
+            }
         }
+
 
     }
 }
