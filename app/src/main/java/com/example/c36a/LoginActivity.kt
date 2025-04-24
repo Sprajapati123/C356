@@ -47,6 +47,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.c36a.ui.theme.C36ATheme
+import com.example.c36a.ui.theme.customGreen
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -152,7 +153,7 @@ fun InstaClone(innerPadding: PaddingValues) {
         ) {
             Text(
                 "Andrew", style = TextStyle(
-                    fontWeight = FontWeight.Bold, color = Color.Red
+                    fontWeight = FontWeight.Bold, color = customGreen
                 )
             )
             Text("Artist", modifier = Modifier.alpha(alpha = 0.5f))
@@ -161,7 +162,7 @@ fun InstaClone(innerPadding: PaddingValues) {
             Text("Followed by jeena and anna")
         }
 
-        Spacer(modifier = Modifier.height(50.dp))
+//        Spacer(modifier = Modifier.height(50.dp))
 
         Row(
             modifier = Modifier
