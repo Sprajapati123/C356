@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -97,27 +98,56 @@ fun InstaClone(innerPadding: PaddingValues) {
             )
         }
 
-        Row {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
             Image(
                 painter = painterResource(R.drawable.person),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.
-                    height(120.dp).width(120.dp).
-                    clip(shape = RoundedCornerShape(100.dp))
+                modifier = Modifier
+                    .height(120.dp)
+                    .width(120.dp)
+                    .clip(shape = RoundedCornerShape(100.dp))
             )
-            Column {
+            Column(
+
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text("174")
                 Text("Posts")
             }
-            Column {
-                Text("174")
-                Text("Posts")
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("714k")
+                Text("Following")
             }
-            Column {
-                Text("174")
-                Text("Posts")
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("715k")
+                Text("Followers")
             }
+        }
+
+        Column(
+            modifier = Modifier.padding(
+                horizontal = 15.dp,
+                vertical = 15.dp
+            )
+        ) {
+            Text("Andrew", style = TextStyle(
+                fontWeight = FontWeight.Bold, color = Color.Red))
+            Text("Artist", modifier = Modifier.alpha(alpha = 0.5f))
+            Text("Designer")
+            Text("issbella@art.com")
+            Text("Followed by jeena and anna")
         }
 
 
