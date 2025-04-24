@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -159,13 +161,15 @@ fun InstaClone(innerPadding: PaddingValues) {
             Text("Followed by jeena and anna")
         }
 
-        Row (
+        Spacer(modifier = Modifier.height(50.dp))
+
+        Row(
             modifier = Modifier
                 .padding(horizontal = 15.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
+        ) {
             Button(
                 onClick = {
                     //todo when button clicked
@@ -215,14 +219,23 @@ fun InstaClone(innerPadding: PaddingValues) {
                     contentColor = Color.Black
                 )
             ) {
-                Icon(Icons.Default.KeyboardArrowDown,
-                    contentDescription = null)
+                Icon(
+                    Icons.Default.KeyboardArrowDown,
+                    contentDescription = null
+                )
             }
 
 
         }
 
 
+//        Row {
+//            Card(modifier = Modifier.height(200.dp).weight(1f)) {
+//
+//            }
+//            Spacer(modifier = Modifier.width(10.dp))
+//            Card(modifier = Modifier.height(200.dp).weight(3f)) { }
+//        }
     }
 }
 
