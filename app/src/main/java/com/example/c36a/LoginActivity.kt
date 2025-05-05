@@ -8,13 +8,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -62,18 +65,21 @@ fun LoginBody(paddingValues: PaddingValues) {
         ) {
 
 
+        Spacer(modifier = Modifier.height(50.dp))
 
         Image(
             painter = painterResource(R.drawable.img),
             contentDescription = null
         )
 
+        Spacer(modifier = Modifier.height(40.dp))
+
         OutlinedTextField(
             value = email,
             onValueChange = {
                 email = it
             },
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
             placeholder = {
                 Text(text = "Enter email")
             },
@@ -89,6 +95,31 @@ fun LoginBody(paddingValues: PaddingValues) {
             },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email
+            )
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
+        OutlinedTextField(
+            value = password,
+            onValueChange = {
+                password = it
+            },
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+            placeholder = {
+                Text(text = "Enter password")
+            },
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.Gray.copy(alpha = 0.2f),
+                focusedIndicatorColor = Color.Green,
+                unfocusedContainerColor = Color.Gray.copy(alpha = 0.2f),
+                unfocusedIndicatorColor = Color.Blue
+            ),
+            shape = RoundedCornerShape(12.dp),
+            prefix = {
+                Icon(Icons.Default.Lock, contentDescription = null)
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Password
             )
         )
 
