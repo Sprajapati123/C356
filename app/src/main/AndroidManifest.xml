@@ -16,9 +16,9 @@
         android:theme="@style/Theme.C36A"
         tools:targetApi="31">
         <activity
-            android:name=".ProfileActivity"
+            android:name=".LoginActivity"
             android:exported="true"
-            android:label="@string/title_activity_profile"
+            android:label="@string/title_activity_login"
             android:theme="@style/Theme.C36A">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,9 +27,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".ProfileActivity"
             android:exported="true"
-            android:label="@string/title_activity_login"
+            android:label="@string/title_activity_profile"
             android:theme="@style/Theme.C36A">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
