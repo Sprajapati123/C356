@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -35,6 +36,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.c36a.ui.theme.C36ATheme
@@ -57,12 +60,16 @@ fun LoginBody(paddingValues: PaddingValues) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var passwordVisibility by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(color = Color.White),
+
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.White),
         horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+    ) {
 
 
         Spacer(modifier = Modifier.height(50.dp))
@@ -79,10 +86,13 @@ fun LoginBody(paddingValues: PaddingValues) {
             onValueChange = {
                 email = it
             },
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp),
             placeholder = {
                 Text(text = "Enter email")
             },
+//            minLines = 4,
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Gray.copy(alpha = 0.2f),
                 focusedIndicatorColor = Color.Green,
@@ -104,7 +114,9 @@ fun LoginBody(paddingValues: PaddingValues) {
             onValueChange = {
                 password = it
             },
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp),
             placeholder = {
                 Text(text = "Enter password")
             },
@@ -118,12 +130,29 @@ fun LoginBody(paddingValues: PaddingValues) {
             prefix = {
                 Icon(Icons.Default.Lock, contentDescription = null)
             },
+
+            suffix = {
+                Icon(
+                    painterResource(
+                        if(passwordVisibility) R.drawable.baseline_visibility_24 else
+                        R.drawable.baseline_visibility_off_24),
+                    contentDescription = null,
+                    modifier = Modifier.clickable {
+//                        1
+
+
+                        //2
+                        passwordVisibility = !passwordVisibility
+
+                    }
+                )
+            },
+
+            visualTransformation = if(passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             )
         )
-
-
 
 
     }
@@ -131,6 +160,6 @@ fun LoginBody(paddingValues: PaddingValues) {
 
 @Preview
 @Composable
-fun PreviewLogin(){
+fun PreviewLogin() {
     LoginBody(paddingValues = PaddingValues(0.dp))
 }
