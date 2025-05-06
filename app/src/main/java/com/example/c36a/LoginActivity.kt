@@ -7,8 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +22,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -61,6 +65,7 @@ fun LoginBody(paddingValues: PaddingValues) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
+    var rememberMe by remember { mutableStateOf(false) }
 
 
 
@@ -138,9 +143,6 @@ fun LoginBody(paddingValues: PaddingValues) {
                         R.drawable.baseline_visibility_off_24),
                     contentDescription = null,
                     modifier = Modifier.clickable {
-//                        1
-
-
                         //2
                         passwordVisibility = !passwordVisibility
 
@@ -153,6 +155,31 @@ fun LoginBody(paddingValues: PaddingValues) {
                 keyboardType = KeyboardType.Password
             )
         )
+
+        Row(
+            modifier = Modifier.padding(horizontal = 12.dp).fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    colors = CheckboxDefaults.colors(
+                        checkedColor = Color.Green,
+                        checkmarkColor = Color.White
+                    ),
+                    checked = rememberMe,
+                    onCheckedChange = {
+                        rememberMe = it
+                    }
+                )
+                Text("Remember me")
+            }
+
+            Text("Forget Password?")
+        }
+
 
 
     }
