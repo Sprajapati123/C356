@@ -22,6 +22,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
@@ -78,6 +79,8 @@ fun LoginBody() {
     val couroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
+    var showDialog by remember { mutableStateOf(false) }
+
 
     Scaffold (
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
@@ -88,7 +91,36 @@ fun LoginBody() {
                 .background(color = Color.White),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Trigger to show the dialog
+            Button(onClick = { showDialog = true }) {
+                Text("Show AlertDialog")
+            }
 
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = {
+                        showDialog = false
+                    }, // dismiss when clicked outside
+                    confirmButton = {
+                        Button(onClick = {
+                            // Confirm action
+                            showDialog = false
+                        }) {
+                            Text("OK")
+                        }
+                    },
+                    dismissButton = {
+                        Button(onClick = {
+                            // Cancel action
+                            showDialog = false
+                        }) {
+                            Text("Cancel")
+                        }
+                    },
+                    title = { Text(text = "Alert Title") },
+                    text = { Text("This is an alert dialog message.") }
+                )
+            }
 
             Spacer(modifier = Modifier.height(50.dp))
 
