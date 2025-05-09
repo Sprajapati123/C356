@@ -53,15 +53,14 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Scaffold { padding ->
-                LoginBody(padding)
-            }
+                LoginBody()
+
         }
     }
 }
 
 @Composable
-fun LoginBody(paddingValues: PaddingValues) {
+fun LoginBody() {
 //    var counter : Int = 0
 
     var email by remember { mutableStateOf("") }
@@ -72,146 +71,149 @@ fun LoginBody(paddingValues: PaddingValues) {
 
     val context = LocalContext.current
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-
-        Spacer(modifier = Modifier.height(50.dp))
-
-        Image(
-            painter = painterResource(R.drawable.img),
-            contentDescription = null
-        )
-
-        Spacer(modifier = Modifier.height(40.dp))
-
-        OutlinedTextField(
-            value = email,
-            onValueChange = {
-                email = it
-            },
+    Scaffold   { padding->
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 15.dp),
-            placeholder = {
-                Text(text = "Enter email")
-            },
-//            minLines = 4,
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Gray.copy(alpha = 0.2f),
-                focusedIndicatorColor = Color.Green,
-                unfocusedContainerColor = Color.Gray.copy(alpha = 0.2f),
-                unfocusedIndicatorColor = Color.Blue
-            ),
-            shape = RoundedCornerShape(12.dp),
-            prefix = {
-                Icon(Icons.Default.Email, contentDescription = null)
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email
-            )
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-        OutlinedTextField(
-            value = password,
-            onValueChange = {
-                password = it
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 15.dp),
-            placeholder = {
-                Text(text = "Enter password")
-            },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color.Gray.copy(alpha = 0.2f),
-                focusedIndicatorColor = Color.Green,
-                unfocusedContainerColor = Color.Gray.copy(alpha = 0.2f),
-                unfocusedIndicatorColor = Color.Blue
-            ),
-            shape = RoundedCornerShape(12.dp),
-            prefix = {
-                Icon(Icons.Default.Lock, contentDescription = null)
-            },
-
-            suffix = {
-                Icon(
-                    painterResource(
-                        if (passwordVisibility) R.drawable.baseline_visibility_24 else
-                            R.drawable.baseline_visibility_off_24
-                    ),
-                    contentDescription = null,
-                    modifier = Modifier.clickable {
-                        //2
-                        passwordVisibility = !passwordVisibility
-
-                    }
-                )
-            },
-
-            visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password
-            )
-        )
-
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 12.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+                .fillMaxSize().padding(padding)
+                .background(color = Color.White),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    colors = CheckboxDefaults.colors(
-                        checkedColor = Color.Green,
-                        checkmarkColor = Color.White
-                    ),
-                    checked = rememberMe,
-                    onCheckedChange = {
-                        rememberMe = it
-                    }
+
+
+            Spacer(modifier = Modifier.height(50.dp))
+
+            Image(
+                painter = painterResource(R.drawable.img),
+                contentDescription = null
+            )
+
+            Spacer(modifier = Modifier.height(40.dp))
+
+            OutlinedTextField(
+                value = email,
+                onValueChange = {
+                    email = it
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp),
+                placeholder = {
+                    Text(text = "Enter email")
+                },
+                //            minLines = 4,
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.Gray.copy(alpha = 0.2f),
+                    focusedIndicatorColor = Color.Green,
+                    unfocusedContainerColor = Color.Gray.copy(alpha = 0.2f),
+                    unfocusedIndicatorColor = Color.Blue
+                ),
+                shape = RoundedCornerShape(12.dp),
+                prefix = {
+                    Icon(Icons.Default.Email, contentDescription = null)
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Email
                 )
-                Text("Remember me")
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+            OutlinedTextField(
+                value = password,
+                onValueChange = {
+                    password = it
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp),
+                placeholder = {
+                    Text(text = "Enter password")
+                },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.Gray.copy(alpha = 0.2f),
+                    focusedIndicatorColor = Color.Green,
+                    unfocusedContainerColor = Color.Gray.copy(alpha = 0.2f),
+                    unfocusedIndicatorColor = Color.Blue
+                ),
+                shape = RoundedCornerShape(12.dp),
+                prefix = {
+                    Icon(Icons.Default.Lock, contentDescription = null)
+                },
+
+                suffix = {
+                    Icon(
+                        painterResource(
+                            if (passwordVisibility) R.drawable.baseline_visibility_24 else
+                                R.drawable.baseline_visibility_off_24
+                        ),
+                        contentDescription = null,
+                        modifier = Modifier.clickable {
+                            //2
+                            passwordVisibility = !passwordVisibility
+
+                        }
+                    )
+                },
+
+                visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password
+                )
+            )
+
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 12.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = Color.Green,
+                            checkmarkColor = Color.White
+                        ),
+                        checked = rememberMe,
+                        onCheckedChange = {
+                            rememberMe = it
+                        }
+                    )
+                    Text("Remember me")
+                }
+
+                Text("Forget Password?")
             }
 
-            Text("Forget Password?")
+            Button(
+                onClick = {
+                    if (email == "ram@gmail.com"
+                        && password == "password"
+                    ) {
+                        Toast.makeText(
+                            context, "Login success",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        //snackbar
+
+                    }
+                }, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                shape = RoundedCornerShape(10.dp)
+            ) {
+                Text("Login")
+            }
+
+
         }
-
-        Button(
-            onClick = {
-                if (email == "ram@gmail.com"
-                    && password == "password"
-                ) {
-                    Toast.makeText(context, "Login success",
-                        Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "Invalid credentials",
-                        Toast.LENGTH_SHORT).show()
-
-                }
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Text("Login")
-        }
-
-
     }
 }
 
 @Preview
 @Composable
 fun PreviewLogin() {
-    LoginBody(paddingValues = PaddingValues(0.dp))
+    LoginBody()
 }
