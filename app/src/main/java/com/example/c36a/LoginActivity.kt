@@ -1,6 +1,7 @@
 package com.example.c36a
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -38,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -68,6 +70,7 @@ fun LoginBody(paddingValues: PaddingValues) {
     var rememberMe by remember { mutableStateOf(false) }
 
 
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -139,8 +142,9 @@ fun LoginBody(paddingValues: PaddingValues) {
             suffix = {
                 Icon(
                     painterResource(
-                        if(passwordVisibility) R.drawable.baseline_visibility_24 else
-                        R.drawable.baseline_visibility_off_24),
+                        if (passwordVisibility) R.drawable.baseline_visibility_24 else
+                            R.drawable.baseline_visibility_off_24
+                    ),
                     contentDescription = null,
                     modifier = Modifier.clickable {
                         //2
@@ -150,14 +154,16 @@ fun LoginBody(paddingValues: PaddingValues) {
                 )
             },
 
-            visualTransformation = if(passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             )
         )
 
         Row(
-            modifier = Modifier.padding(horizontal = 12.dp).fillMaxWidth(),
+            modifier = Modifier
+                .padding(horizontal = 12.dp)
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -180,6 +186,25 @@ fun LoginBody(paddingValues: PaddingValues) {
             Text("Forget Password?")
         }
 
+        Button(
+            onClick = {
+                if (email == "ram@gmail.com"
+                    && password == "password"
+                ) {
+                    Toast.makeText(context, "Login success",
+                        Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Invalid credentials",
+                        Toast.LENGTH_SHORT).show()
+
+                }
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            shape = RoundedCornerShape(10.dp)
+        ) {
+            Text("Login")
+        }
 
 
     }
