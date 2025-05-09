@@ -28,6 +28,8 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -35,6 +37,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,6 +50,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.c36a.ui.theme.C36ATheme
+import kotlinx.coroutines.launch
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +75,13 @@ fun LoginBody() {
 
     val context = LocalContext.current
 
-    Scaffold   { padding->
+    val couroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+
+    Scaffold (
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+    )  { padding->
         Column(
             modifier = Modifier
                 .fillMaxSize().padding(padding)
@@ -197,7 +207,9 @@ fun LoginBody() {
                         ).show()
                     } else {
                         //snackbar
-
+                        couroutineScope.launch {
+                            snackbarHostState.showSnackbar("Invalid login")
+                        }
                     }
                 }, modifier = Modifier
                     .fillMaxWidth()
@@ -215,5 +227,5 @@ fun LoginBody() {
 @Preview
 @Composable
 fun PreviewLogin() {
-    LoginBody()
+    LoginBody(  )
 }
