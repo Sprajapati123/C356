@@ -1,5 +1,7 @@
 package com.example.c36a
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -58,7 +60,7 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-                LoginBody()
+            LoginBody()
 
         }
     }
@@ -75,6 +77,7 @@ fun LoginBody() {
 
 
     val context = LocalContext.current
+    val activity = context as Activity
 
     val couroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -82,12 +85,13 @@ fun LoginBody() {
     var showDialog by remember { mutableStateOf(false) }
 
 
-    Scaffold (
+    Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-    )  { padding->
+    ) { padding ->
         Column(
             modifier = Modifier
-                .fillMaxSize().padding(padding)
+                .fillMaxSize()
+                .padding(padding)
                 .background(color = Color.White),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -233,6 +237,17 @@ fun LoginBody() {
                     if (email == "ram@gmail.com"
                         && password == "password"
                     ) {
+
+                        val intent = Intent(context, DashboardActivity::class.java)
+
+                        //to pass data to another activity
+                        intent.putExtra("email",email)
+                        intent.putExtra("password",password)
+
+                        context.startActivity(intent)
+
+                        activity.finish()
+
                         Toast.makeText(
                             context, "Login success",
                             Toast.LENGTH_SHORT
@@ -252,6 +267,16 @@ fun LoginBody() {
             }
 
 
+            Text(
+                "Don't have an account, Signup",
+                modifier = Modifier.clickable {
+                    val intent = Intent(context, ProfileActivity::class.java)
+                    context.startActivity(intent)
+
+                    //to destroy activity
+                    activity.finish()
+                }
+            )
         }
     }
 }
@@ -259,5 +284,5 @@ fun LoginBody() {
 @Preview
 @Composable
 fun PreviewLogin() {
-    LoginBody(  )
+    LoginBody()
 }
