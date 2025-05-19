@@ -1,6 +1,7 @@
 package com.example.c36a
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -78,6 +79,17 @@ fun LoginBody() {
 
     val context = LocalContext.current
     val activity = context as Activity
+
+
+    val sharedPreferences = context.getSharedPreferences("User", Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+
+    val localEmail : String = sharedPreferences.getString("email","").toString()
+    val localPassword : String = sharedPreferences.getString("password","").toString()
+
+    email = localEmail
+    password = localPassword
+
 
     val couroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -238,6 +250,11 @@ fun LoginBody() {
                         && password == "password"
                     ) {
 
+                        if(rememberMe){
+                            editor.putString("email",email)
+                            editor.putString("password",password)
+                            editor.apply()
+                        }
                         val intent = Intent(context, DashboardActivity::class.java)
 
                         //to pass data to another activity
