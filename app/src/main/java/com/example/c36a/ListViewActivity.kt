@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -76,14 +78,37 @@ fun ListViewBody() {
         ) {
             item {
 
-                LazyRow(modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                LazyVerticalGrid(modifier = Modifier
+                    .height(320.dp)
+                    .fillMaxWidth(),
+                    columns = GridCells.Fixed(3)
                     ) {
-                    items(images.size) {index->
-                        Column (
+                    items(images.size) { index ->
+                        Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
-                        ){
+                        ) {
+                            Image(
+                                painterResource(images[index]),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier
+                                    .size(100.dp)
+
+                            )
+                            Text(name[index])
+                        }
+                    }
+                }
+
+                        LazyRow (modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(images.size) { index ->
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
                             Image(
                                 painterResource(images[index]),
                                 contentDescription = null,
