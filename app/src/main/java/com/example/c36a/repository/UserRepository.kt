@@ -34,6 +34,9 @@ interface UserRepository {
         callback: (Boolean, String) -> Unit
     )
 
+    fun updateProfile(userId: String,data : MutableMap<String,Any?>,
+                      callback: (Boolean, String) -> Unit)
+
     fun forgetPassword(
         email: String, callback: (Boolean, String) -> Unit
     )
@@ -47,6 +50,7 @@ interface UserRepository {
             Boolean, String
         ) -> Unit
     )
+
 
 
     fun logout(callback: (Boolean, String) -> Unit)
