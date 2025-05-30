@@ -16,7 +16,7 @@
         android:theme="@style/Theme.C36A"
         tools:targetApi="31">
         <activity
-            android:name=".NavigationActivity"
+            android:name=".view.NavigationActivity"
             android:exported="true"
             android:label="@string/title_activity_navigation"
             android:theme="@style/Theme.C36A">
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ListViewActivity"
+            android:name=".view.ListViewActivity"
             android:exported="true"
             android:label="@string/title_activity_list_view"
             android:theme="@style/Theme.C36A">
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".view.SplashActivity"
             android:exported="true"
             android:label="@string/title_activity_splash"
             android:theme="@style/Theme.C36A">
@@ -49,7 +49,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DashboardActivity"
+            android:name=".view.DashboardActivity"
             android:exported="true"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/Theme.C36A">
@@ -60,7 +60,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ForgetPasswordActivity"
+            android:name=".view.ForgetPasswordActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.C36A">
@@ -71,7 +71,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.C36A">
@@ -82,7 +82,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".view.ProfileActivity"
             android:exported="true"
             android:label="@string/title_activity_profile"
             android:theme="@style/Theme.C36A">
@@ -93,7 +93,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.C36A">

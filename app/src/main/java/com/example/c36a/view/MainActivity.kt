@@ -1,4 +1,4 @@
-package com.example.c36a
+package com.example.c36a.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

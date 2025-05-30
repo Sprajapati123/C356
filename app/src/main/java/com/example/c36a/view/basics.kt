@@ -1,4 +1,4 @@
-package com.example.c36a
+package com.example.c36a.view
 
 fun main() {
     //in java

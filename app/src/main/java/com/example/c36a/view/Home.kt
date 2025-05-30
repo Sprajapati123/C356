@@ -1,4 +1,4 @@
-package com.example.c36a
+package com.example.c36a.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -7,10 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
+
 @Composable
-fun Profile(){
+fun Home(){
     Column(
-        modifier = Modifier.fillMaxSize().background(color = Color.Yellow)
+        modifier = Modifier.fillMaxSize().background(color = Color.Red)
     ) {
 
     }

@@ -1,4 +1,4 @@
-package com.example.c36a
+package com.example.c36a.view
 
 import android.app.Activity
 import android.content.Context
@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -27,7 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.c36a.ui.theme.C36ATheme
+import com.example.c36a.R
 import kotlinx.coroutines.delay
 
 class SplashActivity : ComponentActivity() {
