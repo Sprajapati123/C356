@@ -8,6 +8,7 @@ interface UserRepository {
     //register,
     //forgetpassword
     //updateProfile
+    //getUserDetails
     //getCurrentUser
     //addUserToDatabase
     //logout
@@ -38,6 +39,14 @@ interface UserRepository {
     )
 
     fun getCurrentUser(): FirebaseUser?
+
+    fun getUserById(
+        userId: String,
+        callback: (
+            UserModel?,
+            Boolean, String
+        ) -> Unit
+    )
 
 
     fun logout(callback: (Boolean, String) -> Unit)
