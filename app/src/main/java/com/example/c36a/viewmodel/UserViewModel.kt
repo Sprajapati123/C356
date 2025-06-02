@@ -58,8 +58,10 @@ class UserViewModel(val repo: UserRepository) : ViewModel() {
     ) {
         repo.getUserById(userId) {
             users,success,message->
-            if(success){
+            if(success && users != null){
                 _users.postValue(users)
+            }else{
+                _users.postValue(null)
             }
         }
     }
