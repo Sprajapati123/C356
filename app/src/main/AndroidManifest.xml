@@ -16,6 +16,17 @@
         android:theme="@style/Theme.C36A"
         tools:targetApi="31">
         <activity
+            android:name=".view.RegistrationActivity"
+            android:exported="true"
+            android:label="@string/title_activity_registration"
+            android:theme="@style/Theme.C36A">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.NavigationActivity"
             android:exported="true"
             android:label="@string/title_activity_navigation"

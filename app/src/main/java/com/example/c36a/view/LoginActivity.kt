@@ -285,7 +285,8 @@ fun LoginBody() {
             Text(
                 "Don't have an account, Signup",
                 modifier = Modifier.clickable {
-                    val intent = Intent(context, ProfileActivity::class.java)
+                    val intent = Intent(context, RegistrationActivity
+                    ::class.java)
                     context.startActivity(intent)
 
                     //to destroy activity
