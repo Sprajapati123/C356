@@ -1,6 +1,8 @@
 package com.example.c36a.view
 
+import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -36,10 +38,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
+import com.example.c36a.model.UserModel
+import com.example.c36a.repository.UserRepositoryImpl
+import com.example.c36a.viewmodel.UserViewModel
 
 class RegistrationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +61,14 @@ class RegistrationActivity : ComponentActivity() {
 
 @Composable
 fun RegBody(innerPaddingValues: PaddingValues) {
+
+    val repo = remember { UserRepositoryImpl() }
+    val userViewModel = remember { UserViewModel(repo) }
+
+    val context = LocalContext.current
+    val activity = context as? Activity
+
+
     var firstName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var lastname by remember { mutableStateOf("") }
@@ -68,7 +82,8 @@ fun RegBody(innerPaddingValues: PaddingValues) {
     var textFieldSize by remember { mutableStateOf(Size.Zero) } // to capture textfield size
     Column(
         modifier = Modifier
-            .padding(innerPaddingValues).padding(horizontal = 10.dp)
+            .padding(innerPaddingValues)
+            .padding(horizontal = 10.dp)
             .fillMaxSize()
             .background(color = Color.White)
     ) {
@@ -113,7 +128,8 @@ fun RegBody(innerPaddingValues: PaddingValues) {
         Spacer(modifier = Modifier.height(20.dp))
         Box(
             modifier = Modifier
-                .fillMaxWidth()) {
+                .fillMaxWidth()
+        ) {
             OutlinedTextField(
                 value = selectedOptionText,
                 onValueChange = {},
@@ -169,8 +185,29 @@ fun RegBody(innerPaddingValues: PaddingValues) {
         )
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = {},
-            modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = {
+                userViewModel.register(email, password) { success, message, userId ->
+                    if (success) {
+                        var userModel = UserModel(
+                            userId, email, firstName, lastname,
+                            "Male", "980805555", selectedOptionText
+                        )
+                        userViewModel.addUserToDatabase(userId,userModel){
+                            success,message->
+                            if(success){
+                                Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+                            }else{
+                                Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+                    }
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text("Register")
         }
 
