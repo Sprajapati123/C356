@@ -26,9 +26,7 @@ class ForgetPasswordActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
             forgetBody()
-
         }
     }
 }
