@@ -1,6 +1,8 @@
 package com.example.c36a.view
 
+import android.app.Activity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,8 +20,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.c36a.repository.UserRepositoryImpl
+import com.example.c36a.viewmodel.UserViewModel
 
 class ForgetPasswordActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +38,14 @@ class ForgetPasswordActivity : ComponentActivity() {
 
 @Composable
 fun forgetBody() {
+    val repo = remember { UserRepositoryImpl() }
+    val userViewModel = remember { UserViewModel(repo) }
+
+    val context = LocalContext.current
+    val activity = context as Activity
+
     var email by remember { mutableStateOf("") }
-    Scaffold  { padding->
+    Scaffold { padding ->
         Column(
             modifier = Modifier
                 .padding(padding)
@@ -53,9 +64,19 @@ fun forgetBody() {
 
             Button(
                 onClick = {
+                    userViewModel.forgetPassword(email) { success, message ->
+                        if (success) {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                            activity?.finish()
+                        } else {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
+                        }
+                    }
                 },
-                modifier = Modifier.fillMaxWidth().padding(top = 15.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 15.dp)
             ) {
                 Text("Submit")
             }

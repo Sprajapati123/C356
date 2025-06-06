@@ -52,6 +52,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.c36a.R
+import com.example.c36a.repository.UserRepositoryImpl
+import com.example.c36a.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
 class LoginActivity : ComponentActivity() {
@@ -69,21 +71,26 @@ class LoginActivity : ComponentActivity() {
 fun LoginBody() {
 //    var counter : Int = 0
 
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordVisibility by remember { mutableStateOf(false) }
-    var rememberMe by remember { mutableStateOf(false) }
+    val repo = remember { UserRepositoryImpl() }
+    val userViewModel = remember { UserViewModel(repo) }
+
 
 
     val context = LocalContext.current
     val activity = context as Activity
 
 
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var passwordVisibility by remember { mutableStateOf(false) }
+    var rememberMe by remember { mutableStateOf(false) }
+
+
     val sharedPreferences = context.getSharedPreferences("User", Context.MODE_PRIVATE)
     val editor = sharedPreferences.edit()
 
-    val localEmail : String = sharedPreferences.getString("email","").toString()
-    val localPassword : String = sharedPreferences.getString("password","").toString()
+    val localEmail: String = sharedPreferences.getString("email", "").toString()
+    val localPassword: String = sharedPreferences.getString("password", "").toString()
 
     email = localEmail
     password = localPassword
@@ -244,35 +251,47 @@ fun LoginBody() {
 
             Button(
                 onClick = {
-                    if (email == "ram@gmail.com"
-                        && password == "password"
-                    ) {
+                    userViewModel.login(email, password) { success, message ->
+                        if (success) {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
-                        if(rememberMe){
-                            editor.putString("email",email)
-                            editor.putString("password",password)
-                            editor.apply()
-                        }
-                        val intent = Intent(context, DashboardActivity::class.java)
+                            val intent = Intent(context, DashboardActivity::class.java)
+                            context.startActivity(intent)
+                            activity?.finish()
+                        } else {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
-                        //to pass data to another activity
-                        intent.putExtra("email",email)
-                        intent.putExtra("password",password)
-
-                        context.startActivity(intent)
-
-                        activity.finish()
-
-                        Toast.makeText(
-                            context, "Login success",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        //snackbar
-                        couroutineScope.launch {
-                            snackbarHostState.showSnackbar("Invalid login")
                         }
                     }
+//                    if (email == "ram@gmail.com"
+//                        && password == "password"
+//                    ) {
+//
+//                        if(rememberMe){
+//                            editor.putString("email",email)
+//                            editor.putString("password",password)
+//                            editor.apply()
+//                        }
+//                        val intent = Intent(context, DashboardActivity::class.java)
+//
+//                        //to pass data to another activity
+//                        intent.putExtra("email",email)
+//                        intent.putExtra("password",password)
+//
+//                        context.startActivity(intent)
+//
+//                        activity.finish()
+//
+//                        Toast.makeText(
+//                            context, "Login success",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    } else {
+//                        //snackbar
+//                        couroutineScope.launch {
+//                            snackbarHostState.showSnackbar("Invalid login")
+//                        }
+//                    }
                 }, modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
@@ -285,8 +304,10 @@ fun LoginBody() {
             Text(
                 "Don't have an account, Signup",
                 modifier = Modifier.clickable {
-                    val intent = Intent(context, RegistrationActivity
-                    ::class.java)
+                    val intent = Intent(
+                        context, RegistrationActivity
+                        ::class.java
+                    )
                     context.startActivity(intent)
 
                     //to destroy activity
