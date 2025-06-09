@@ -1,7 +1,10 @@
 package com.example.c36a.repository
 
 import com.example.c36a.model.ProductModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ProductRepositoryImpl : ProductRepository {
 
@@ -15,10 +18,10 @@ class ProductRepositoryImpl : ProductRepository {
         val id = ref.push().key.toString()
         model.productId = id
         ref.child(model.productId).setValue(model).addOnCompleteListener {
-            if(it.isSuccessful){
-                callback(true,"product added successfully")
-            }else{
-                callback(false,"${it.exception?.message}")
+            if (it.isSuccessful) {
+                callback(true, "product added successfully")
+            } else {
+                callback(false, "${it.exception?.message}")
 
             }
         }
@@ -33,10 +36,10 @@ class ProductRepositoryImpl : ProductRepository {
         callback: (Boolean, String) -> Unit
     ) {
         ref.child(productId).updateChildren(data).addOnCompleteListener {
-            if(it.isSuccessful){
-                callback(true,"product updated successfully")
-            }else{
-                callback(false,"${it.exception?.message}")
+            if (it.isSuccessful) {
+                callback(true, "product updated successfully")
+            } else {
+                callback(false, "${it.exception?.message}")
 
             }
         }
@@ -47,10 +50,10 @@ class ProductRepositoryImpl : ProductRepository {
         callback: (Boolean, String) -> Unit
     ) {
         ref.child(productId).removeValue().addOnCompleteListener {
-            if(it.isSuccessful){
-                callback(true,"product deleted successfully")
-            }else{
-                callback(false,"${it.exception?.message}")
+            if (it.isSuccessful) {
+                callback(true, "product deleted successfully")
+            } else {
+                callback(false, "${it.exception?.message}")
 
             }
         }
@@ -60,10 +63,42 @@ class ProductRepositoryImpl : ProductRepository {
         productId: String,
         callback: (Boolean, String, ProductModel?) -> Unit
     ) {
-        TODO("Not yet implemented")
+        ref.child(productId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val product = snapshot.getValue(ProductModel::class.java)
+                    if (product != null) {
+                        callback(true, "product fetched", product)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(false, error.message, null)
+            }
+
+        })
     }
 
     override fun getAllProduct(callback: (Boolean, String, List<ProductModel?>) -> Unit) {
-        TODO("Not yet implemented")
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    var allProducts = mutableListOf<ProductModel>()
+                    for (eachProduct in snapshot.children) {
+                        var products = eachProduct.getValue(ProductModel::class.java)
+                        if (products != null) {
+                            allProducts.add(products)
+                        }
+                    }
+                    callback(true, "product fetched", allProducts)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(false, error.message, emptyList())
+            }
+
+        })
     }
 }
