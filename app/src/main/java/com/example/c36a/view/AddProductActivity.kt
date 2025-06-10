@@ -52,6 +52,7 @@ fun AddProductBody() {
     val context = LocalContext.current
     val activity = context as? Activity
 
+    val products =
 
     Scaffold { innerPadding ->
         LazyColumn(
