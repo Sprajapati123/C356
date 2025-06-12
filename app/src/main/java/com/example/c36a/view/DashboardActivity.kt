@@ -82,7 +82,7 @@ fun DashboardBody() {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.End
-                        ) {
+                        ) {+
                             IconButton(onClick = {}, colors = IconButtonDefaults.iconButtonColors(
                                 contentColor = Color.Gray
                             )) {
